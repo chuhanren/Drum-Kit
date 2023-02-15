@@ -1,37 +1,55 @@
 var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
+//detecting button press
 for(var i = 0; i < numberOfDrumButtons; i++) {
     /*get all drum item*/
     document.querySelectorAll(".drum")[i].addEventListener("click", function() {
         var buttonInnerHTML = this.innerHTML;
-        switch (buttonInnerHTML) {
-            case "w":
-                var tom1 = new Audio("sounds/tom-1.mp3");
-                tom1.play();
-                break;
-            case "a":
-                var tom2 = new Audio("sounds/tom-2.mp3");
-                tom2.play();
-                break;
-            case "s":
-                var tom3 = new Audio("sounds/tom-3.mp3");
-                tom3.play();
-                break;
-            case "d":
-                var tom4 = new Audio("sounds/tom-4.mp3");
-                tom4.play();
-            case "j":
-                var crash = new Audio("sounds/crash.mp3");
-                crash.play();
-            case "k":
-                var kick = new Audio("sounds/kick-bass.mp3");
-                kick.play();
-            case "l":
-                var snare = new Audio("sounds/snare.mp3");
-                snare.play();
-            default: console.log()
-                break;
-        }
+        playSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
     });
 }
+//detecting keyboard press
+document.addEventListener("keydown", function(event) {
+    playSound(event.key);
+    buttonAnimation(event.key);
+} )
 
+function playSound(key) {
+    switch (key) {
+        case "w":
+            var tom1 = new Audio("sounds/tom-1.mp3");
+            tom1.play();
+            break;
+        case "a":
+            var tom2 = new Audio("sounds/tom-2.mp3");
+            tom2.play();
+            break;
+        case "s":
+            var tom3 = new Audio("sounds/tom-3.mp3");
+            tom3.play();
+            break;
+        case "d":
+            var tom4 = new Audio("sounds/tom-4.mp3");
+            tom4.play();
+        case "j":
+            var crash = new Audio("sounds/crash.mp3");
+            crash.play();
+        case "k":
+            var kick = new Audio("sounds/kick-bass.mp3");
+            kick.play();
+        case "l":
+            var snare = new Audio("sounds/snare.mp3");
+            snare.play();
+        default: console.log()
+            break;
+    }
+}
+
+function buttonAnimation(currentKey) {
+    var activeButton = document.querySelector("." + currentKey);
+    activeButton.classList.add("pressed"); //add class to the current button
+    setTimeout(function() {
+        activeButton.classList.remove("pressed");
+    }, 100); //remove pressed class
+}
